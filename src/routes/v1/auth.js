@@ -1,5 +1,5 @@
 const auth = (fastify, _opts, next) => {
-  next();
+	next();
 };
 
 module.exports = auth;
