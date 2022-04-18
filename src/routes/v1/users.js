@@ -1,5 +1,5 @@
 const users = (fastify, _opts, next) => {
-	next();
-}
+  next();
+};
 
 module.exports = users;

@@ -1,38 +1,29 @@
 {
-	"env": {
-		"node": true,
-		"jest": true,
-		"jest/globals": true
-	},
-	"extends": [
-		"airbnb-base",
-		"plugin:jest/recommended",
-		"plugin:security/recommended",
-		"plugin:prettier/recommended"
-	],
-	"plugins": [
-		"jest",
-		"security",
-		"prettier"
-	],
-	"parserOptions": {
-		"ecmaVersion": 2020
-	},
-	"rules": {
-		"indent": [
-			2,
-			"tab",
-			{
-				"SwitchCase": 1
-			}
-		],
-		"no-console": "error",
-		"no-bitwise": "off",
-		"no-plusplus": "off",
-		"func-names": "off",
-		"no-underscore-dangle": "off",
-		"consistent-return": "off",
-		"jest/expect-expect": "off",
-		"security/detect-object-injection": "off"
-	}
+  "env": {
+    "node": true,
+    "jest": true,
+    "jest/globals": true
+  },
+  "extends": ["airbnb-base", "plugin:jest/recommended", "plugin:security/recommended", "plugin:prettier/recommended"],
+  "plugins": ["jest", "security", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "indent": [
+      2,
+      "tab",
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "no-console": "error",
+    "no-bitwise": "off",
+    "no-plusplus": "off",
+    "func-names": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off",
+    "jest/expect-expect": "off",
+    "security/detect-object-injection": "off"
+  }
 }

@@ -1,45 +1,48 @@
 {
-	"name": "zero-fastify-backend",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "node _test_api/test.js",
-		"dev": "nodemon --trace-warnings src/index.js",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-		"prettier:check": "prettier --config .prettierrc.json --check .",
-		"prettier:fix": "prettier --config .prettierrc.json --write .",
-		"prepare": "husky install",
-		"clean:cache": "rimraf node_modules/.cache",
-		"clean:lib": "rimraf node_modules package-lock.json",
-		"reinstall": "npm run clean:lib && npm install"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"argon2": "^0.28.5",
-		"branca": "^0.4.0",
-		"dotenv": "^16.0.0",
-		"fastify": "^3.28.0",
-		"fastify-cookie": "^5.6.1",
-		"fastify-cors": "^6.0.3",
-		"nodemon": "^2.0.15"
-	},
-	"devDependencies": {
-		"husky": "^7.0.4",
-		"lint-staged": "^12.3.8",
-		"prettier": "^2.6.2"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-	"lint-staged": {
-		"src/**": [
-			"npm run prettier:fix",
-			"npm run lint"
-		]
-	}
+  "name": "zero-fastify-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node _test_api/test.js",
+    "dev": "nodemon --trace-warnings src/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier:check": "prettier --config .prettierrc.json --check .",
+    "prettier:fix": "prettier --config .prettierrc.json --write .",
+    "prepare": "husky install",
+    "clean:cache": "rimraf node_modules/.cache",
+    "clean:lib": "rimraf node_modules package-lock.json",
+    "reinstall": "npm run clean:lib && npm install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.28.5",
+    "branca": "^0.4.0",
+    "dotenv": "^16.0.0",
+    "fastify": "^3.28.0",
+    "fastify-cookie": "^5.6.1",
+    "fastify-cors": "^6.0.3",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
+    "prettier": "^2.6.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**": [
+      "npm run prettier:fix",
+      "npm run lint"
+    ],
+    "*.json": [
+      "npm run prettier:fix"
+    ]
+  }
 }

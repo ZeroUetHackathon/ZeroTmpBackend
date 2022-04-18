@@ -16,7 +16,7 @@ const brancaVerify = require('branca')(TOKEN.VERIFY_SECRET);
  * @returns {String} the token
  */
 const encode = (obj, type = BRANCA_TYPES.TOKEN) =>
-	type === BRANCA_TYPES.TOKEN ? branca.encode(obj) : brancaVerify.encode(obj);
+  type === BRANCA_TYPES.TOKEN ? branca.encode(obj) : brancaVerify.encode(obj);
 
 /**
  * Decode the object with branca and check for expired date
@@ -24,11 +24,11 @@ const encode = (obj, type = BRANCA_TYPES.TOKEN) =>
  * @returns {Any} the hashed information
  */
 const decodeToken = (token, type = BRANCA_TYPES.TOKEN) =>
-	type === BRANCA_TYPES.TOKEN
-		? branca.decode(token, TOKEN.TOKEN_EXPIRE)
-		: brancaVerify.decode(token, TOKEN.TOKEN_VERIFY_EXPIRE);
+  type === BRANCA_TYPES.TOKEN
+    ? branca.decode(token, TOKEN.TOKEN_EXPIRE)
+    : brancaVerify.decode(token, TOKEN.TOKEN_VERIFY_EXPIRE);
 
 module.exports = {
-	encode,
-	decodeToken,
+  encode,
+  decodeToken,
 };
