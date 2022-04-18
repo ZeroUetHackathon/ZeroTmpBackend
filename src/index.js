@@ -8,4 +8,5 @@ server.listen(config.BASE.PORT || 5000, config.BASE.HOSTNAME, (err, address) => 
 		console.log(err);
 		process.exit(1);
 	}
+	console.log(`server listening on ${address}`);
 });
