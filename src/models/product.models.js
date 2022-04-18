@@ -6,8 +6,14 @@ const Product = new Schema({
 		type: String,
 		required: true,
 	},
-	wiki: String,
-	attachments: [String],
+	wikiId: {
+		type: Schema.Types.ObjectId,
+		ref: "Wiki",
+	},
+	provinceId: {
+		type: Schema.Types.ObjectId,
+		ref: "Province",
+	},
 });
 
 module.exports = new mongoose.model("Product", Product, "products");
