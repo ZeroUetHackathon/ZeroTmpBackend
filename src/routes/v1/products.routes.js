@@ -1,6 +1,6 @@
 const { productController } = require("#controllers");
 
-const product = (fastify, opts, next) => {
+const products = (fastify, opts, next) => {
 	fastify.get("/products/:provinceId", productController.getProductsByProvince);
 	fastify.get("/product/:productId", productController.getProductById);
 	fastify.put("/product/:productId", productController.editProduct);
@@ -9,4 +9,4 @@ const product = (fastify, opts, next) => {
 	next();
 };
 
-module.exports = product;
+module.exports = products;
