@@ -14,6 +14,10 @@ const Cart = new Schema({
 		type: Number,
 		default: 0,
 	},
+	location: {
+		type: String,
+		required: true,
+	},
 });
 
 module.exports = new mongoose.model("Cart", Cart, "carts");
