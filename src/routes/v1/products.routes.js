@@ -1,11 +1,14 @@
-const { productController } = require("#controllers");
+const { productsController } = require("#controllers");
 
 const products = (fastify, opts, next) => {
-	fastify.get("/products/:provinceId", productController.getProductsByProvince);
-	fastify.get("/product/:productId", productController.getProductById);
-	fastify.put("/product/:productId", productController.editProduct);
-	fastify.delete("/product/:productId", productController.deleteProduct);
-	fastify.post("/product", productController.addProduct);
+	fastify.get(
+		"/products/:provinceId",
+		productsController.getProductsByProvince
+	);
+	fastify.get("/product/:productId", productsController.getProductById);
+	fastify.put("/product/:productId", productsController.editProduct);
+	fastify.delete("/product/:productId", productsController.deleteProduct);
+	fastify.post("/product", productsController.addProduct);
 	next();
 };
 
