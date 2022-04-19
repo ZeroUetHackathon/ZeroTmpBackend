@@ -10,6 +10,10 @@ const Cart = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: "Sale",
 	},
+	numbers: {
+		type: Number,
+		default: 0,
+	},
 });
 
 module.exports = new mongoose.model("Cart", Cart, "carts");
