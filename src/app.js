@@ -1,7 +1,7 @@
 const fastify = require("fastify");
 const cookie = require("fastify-cookie");
 const cors = require("fastify-cors");
-const { errorHandler } = require("#middlewares");
+const { errorHandler, notFoundHandler } = require("#middlewares");
 
 const { db, config } = require("#configs");
 
@@ -27,6 +27,8 @@ const app = (opts = {}) => {
 	app.register(auth, { prefix: `/${config.API_VERSION}` });
 	app.register(products, { prefix: `/${config.API_VERSION}` });
 
+	/* --------------- not found route handler -------------- */
+	app.setNotFoundHandler(notFoundHandler);
 	/* -------------------- error handler ------------------- */
 	app.setErrorHandler(errorHandler);
 
