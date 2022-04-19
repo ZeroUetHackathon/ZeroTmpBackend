@@ -6,8 +6,14 @@ const { db, config } = require("#configs");
 
 const { users, auth } = require(`#routes`)[config.API_VERSION];
 
+const { fastifyMsgpackr } = require('#middlewares');
+
 const app = (opts = {}) => {
 	const app = fastify(opts);
+
+	/* -------------------- register msgpack ------------------- */
+	// Send and receive msgpacked message if the frontend request it
+	fastify.register(fastifyMsgpackr())
 
 	/* -------------------- register cors ------------------- */
 	app.register(cors, {
@@ -16,14 +22,17 @@ const app = (opts = {}) => {
 	});
 
 	/* ------------------- register cookie ------------------ */
-	app.register(cookie);
+	app.register(cookie, {
+		secret: config.COOKIE.SECRET,
+		parseOptions: {}
+	});
 
 	/* ----------------- connect to database ---------------- */
 	db();
 
 	/* -------------------- setup routes -------------------- */
-	app.register(users, { prefix: `/${config.API_VERSION}` });
-	app.register(auth, { prefix: `/${config.API_VERSION}` });
+	app.register(users, { prefix: `/${config.API_VERSION}/users` });
+	app.register(auth, { prefix: `/${config.API_VERSION}/auth` });
 
 	return app;
 };

@@ -10,7 +10,8 @@
 		"#routes": "./src/routes/index.js",
 		"#controllers": "./src/controllers/index.js",
 		"#utils": "./src/utils/index.js",
-		"#handlers": "./src/handlers/index.js"
+		"#handlers": "./src/handlers/index.js",
+		"#services": "./src/services/index.js"
 	},
 	"scripts": {
 		"test": "node _test_api/test.js",
@@ -29,11 +30,15 @@
 	"dependencies": {
 		"argon2": "^0.28.5",
 		"branca": "^0.4.0",
+		"cookie": "^0.5.0",
 		"dotenv": "^16.0.0",
 		"fastify": "^3.28.0",
 		"fastify-cookie": "^5.6.1",
 		"fastify-cors": "^6.0.3",
-		"mongoose": "^6.3.0"
+		"http-status": "^1.5.1",
+		"mongoose": "^6.3.0",
+		"msgpackr": "^1.5.6",
+		"nodejs-snowflake": "^2.0.1"
 	},
 	"devDependencies": {
 		"husky": "^7.0.4",
