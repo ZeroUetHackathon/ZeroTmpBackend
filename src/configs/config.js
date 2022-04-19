@@ -24,9 +24,9 @@ const config = {
 		TOKEN_EXPIRE: process.env.TOKEN_EXPIRE_HOURS * 60 * 60 * 1000,
 	},
 	COOKIE: {
-		SECRET: process.env.COOKIE_SECRET
+		SECRET: process.env.COOKIE_SECRET,
 	},
-	ENV: process.env.NODE_ENV || 'development',
+	ENV: process.env.NODE_ENV || "development",
 
 	get HttpUrl() {
 		return `${this.BASE.HOSTNAME}:${this.BASE.PORT}`;

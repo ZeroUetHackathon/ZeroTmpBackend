@@ -1,5 +1,6 @@
+/* eslint-disable global-require */
 module.export = {
-	tokenService: require('./token.service'),
-	authService: require('./auth.service'),
-	userService: require('./user.service'),
-}
+	tokenService: require("./token.service"),
+	authService: require("./auth.service"),
+	userService: require("./user.service"),
+};

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
 	config: require("./config"),
 	paseto: require("./paseto"),
@@ -5,6 +6,6 @@ module.exports = {
 	msgpackr: require("./msgpackr"),
 	db: require("./db"),
 	models: {
-		roles: require("./models/roles")	
-	}
+		roles: require("./models/roles"),
+	},
 };

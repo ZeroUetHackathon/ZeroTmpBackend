@@ -18,7 +18,7 @@ const encode = (obj) => branca.encode(obj);
  * @param {String} token - token that is hashed with branca algorithm
  * @returns {Any} the hashed information
  */
-const decodeToken = (token) => branca.decode(token, TOKEN.TOKEN_EXPIRE)
+const decodeToken = (token) => branca.decode(token, TOKEN.TOKEN_EXPIRE);
 
 module.exports = {
 	encode,

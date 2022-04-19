@@ -1,4 +1,4 @@
-const { Packr } = require('msgpackr');
+const { Packr } = require("msgpackr");
 
 module.exports = new Packr({
 	structuredClone: true,

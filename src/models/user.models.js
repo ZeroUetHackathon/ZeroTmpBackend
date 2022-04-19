@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
-const { encrypt } = require('#utils');
-const Schema = mongoose.Schema;
+const {
+	encrypt,
+	validator: { isEmail },
+} = require("#utils");
+
+const { Schema } = mongoose;
 
 const User = new Schema({
 	name: {
@@ -17,7 +21,7 @@ const User = new Schema({
 		index: true,
 		validate(value) {
 			if (!isEmail(value)) {
-				throw new Error('Invalid email');
+				throw new Error("Invalid email");
 			}
 		},
 	},
@@ -29,7 +33,7 @@ const User = new Schema({
 		validate(value) {
 			if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
 				throw new Error(
-					'Password must contain at least one letter and one number'
+					"Password must contain at least one letter and one number"
 				);
 			}
 		},
@@ -42,7 +46,7 @@ const User = new Schema({
 	isVerified: {
 		type: Boolean,
 		default: false,
-	}
+	},
 });
 
 /**
@@ -50,18 +54,17 @@ const User = new Schema({
  * @param {string} password
  * @return {Promise<boolean>}
  */
-UserSchema.methods.isPasswordMatch = async function (password) {
+User.methods.isPasswordMatch = async function (password) {
 	return encrypt.verify(this.password, password);
 };
 
 // Hash password before save if user's password was changed
-UserSchema.pre('save', async function (next) {
-	if (this.isModified('password')) {
+User.pre("save", async function (next) {
+	if (this.isModified("password")) {
 		this.password = await encrypt.hash(this.password);
 	}
 	return next();
 });
 
-const User = mongoose.model('User', UserSchema, 'User');
-
+// eslint-disable-next-line
 module.exports = new mongoose.model("User", User, "users");

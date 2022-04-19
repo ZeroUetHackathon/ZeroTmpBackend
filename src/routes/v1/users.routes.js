@@ -1,5 +1,5 @@
-const { auth } = require('#middlewares');
-const { userController } = require('#controllers');
+const { auth } = require("#middlewares");
+const { userController } = require("#controllers");
 
 const users = (fastify, _opts, next) => {
 	fastify.route({

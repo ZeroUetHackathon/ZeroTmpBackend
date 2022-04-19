@@ -1,19 +1,20 @@
 const fastify = require("fastify");
 const cookie = require("fastify-cookie");
 const cors = require("fastify-cors");
+const { errorHandler, notFoundHandler } = require("#middlewares");
 
 const { db, config } = require("#configs");
 
-const { users, auth } = require(`#routes`)[config.API_VERSION];
+const { users, auth, products } = require(`#routes`)[config.API_VERSION];
 
-const { fastifyMsgpackr } = require('#middlewares');
+const { fastifyMsgpackr } = require("#middlewares");
 
-const app = (opts = {}) => {
+const appInit = (opts = {}) => {
 	const app = fastify(opts);
 
 	/* -------------------- register msgpack ------------------- */
 	// Send and receive msgpacked message if the frontend request it
-	fastify.register(fastifyMsgpackr())
+	fastify.register(fastifyMsgpackr());
 
 	/* -------------------- register cors ------------------- */
 	app.register(cors, {
@@ -24,7 +25,7 @@ const app = (opts = {}) => {
 	/* ------------------- register cookie ------------------ */
 	app.register(cookie, {
 		secret: config.COOKIE.SECRET,
-		parseOptions: {}
+		parseOptions: {},
 	});
 
 	/* ----------------- connect to database ---------------- */
@@ -33,8 +34,14 @@ const app = (opts = {}) => {
 	/* -------------------- setup routes -------------------- */
 	app.register(users, { prefix: `/${config.API_VERSION}/users` });
 	app.register(auth, { prefix: `/${config.API_VERSION}/auth` });
+	app.register(products, { prefix: `/${config.API_VERSION}/products` });
+
+	/* --------------- not found route handler -------------- */
+	app.setNotFoundHandler(notFoundHandler);
+	/* -------------------- error handler ------------------- */
+	app.setErrorHandler(errorHandler);
 
 	return app;
 };
 
-module.exports = app;
+module.exports = appInit;

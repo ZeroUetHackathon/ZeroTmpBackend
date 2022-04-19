@@ -1,7 +1,7 @@
-const { Snowflake } = require('nodejs-snowflake');
+const { Snowflake } = require("nodejs-snowflake");
 
 const snowflake = new Snowflake({
-	custom_epoch: new Date('Jan 1 2022').getTime(),
+	custom_epoch: new Date("Jan 1 2022").getTime(),
 });
 
 /*

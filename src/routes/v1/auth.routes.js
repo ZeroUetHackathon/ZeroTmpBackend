@@ -1,4 +1,4 @@
-const { authController } = require('#controllers');
+const { authController } = require("#controllers");
 
 const auth = (fastify, _opts, done) => {
 	fastify.get("/auth", authController.auth);

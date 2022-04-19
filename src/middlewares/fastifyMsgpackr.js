@@ -1,5 +1,5 @@
-const fp = require('fastify-plugin')
-const { msgpackr } = require('#configs')
+const fp = require("fastify-plugin");
+const { msgpackr } = require("#configs");
 
 /**
  *
@@ -8,31 +8,36 @@ const { msgpackr } = require('#configs')
  * @param {*} next
  */
 function fastifyMsgpackr(fastify, options, next) {
-	fastify.register(require('fastify-accepts-serializer'), {
+	// eslint-disable-next-line
+	fastify.register(require("fastify-accepts-serializer"), {
 		serializers: [
 			{
 				regex: /^application\/x-msgpack$/,
-				serializer: body => Buffer.from(msgpackr.pack(body))
-			}
+				serializer: (body) => Buffer.from(msgpackr.pack(body)),
+			},
 		],
-		default: 'application/json'
-	})
+		default: "application/json",
+	});
 
-	fastify.addContentTypeParser('application/x-msgpack', {
-		parseAs: 'buffer'
-	}, (req, body, done) => {
-		try {
-			const res = msgpackr.unpack(body)
-			return res
-		} catch (err) {
-			done(err)
+	fastify.addContentTypeParser(
+		"application/x-msgpack",
+		{
+			parseAs: "buffer",
+		},
+		(req, body, done) => {
+			try {
+				const res = msgpackr.unpack(body);
+				return res;
+			} catch (err) {
+				done(err);
+			}
 		}
-	})
+	);
 
-	next()
+	next();
 }
 
 module.exports = fp(fastifyMsgpackr, {
-	fastify: '3.x',
-	name: 'fastify-msgpackr'
-})
+	fastify: "3.x",
+	name: "fastify-msgpackr",
+});

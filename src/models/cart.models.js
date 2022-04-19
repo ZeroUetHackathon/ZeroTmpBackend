@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const Cart = new Schema({
 	userId: {
@@ -10,6 +11,15 @@ const Cart = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: "Sale",
 	},
+	numbers: {
+		type: Number,
+		default: 0,
+	},
+	location: {
+		type: String,
+		required: true,
+	},
 });
 
+// eslint-disable-next-line
 module.exports = new mongoose.model("Cart", Cart, "carts");
