@@ -20,15 +20,13 @@ const config = {
 		optionsSuccessStatus: 200,
 	},
 	TOKEN: {
-		SECRET: process.env.TOKEN_SECRET,
-		VERIFY_SECRET: process.env.TOKEN_VERIFY_SECRET,
-		// TOKEN_EXPIRE: process.env.TOKEN_EXPIRE_HOURS * 60 * 60 * 1000,
+		SECRET: `k3.local.${process.env.TOKEN_SECRET}`,
 		TOKEN_EXPIRE: process.env.TOKEN_EXPIRE_HOURS * 60 * 60 * 1000,
-		TOKEN_VERIFY_EXPIRE: process.env.TOKEN_EXPIRE_MINUTES * 60 * 1000,
-		REFRESH_TOKEN_EXPIRE: process.env.REFRESH_TOKEN_EXPIRE_WEEKS * 7 * 24 * 60 * 60 * 1000,
-		RESET_PASSWORD_TOKEN_EXPIRE: process.env.RESET_PASSWORD_TOKEN_EXPIRE_MINUTES * 60 * 1000,
-		EMAIL_PASSWORD_TOKEN_EXPIRE: process.env.EMAIL_PASSWORD_TOKEN_EXPIRE_MINUTES * 60 * 1000,
 	},
+	COOKIE: {
+		SECRET: process.env.COOKIE_SECRET,
+	},
+	ENV: process.env.NODE_ENV || "development",
 
 	get HttpUrl() {
 		return `${this.BASE.HOSTNAME}:${this.BASE.PORT}`;

@@ -1,6 +1,7 @@
+/* eslint-disable global-require */
 module.exports = {
-	hash: require("./encrypt").hash,
-	verify: require("./encrypt").verify,
+	encrypt: require("./encrypt"),
+	validator: require("./validator"),
 	ApiError: require("./ApiError"),
 	uploadImage: require("./uploadImage"),
 };

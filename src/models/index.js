@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
 	Product: require("./product.models"),
 	Sale: require("./sale.models"),

@@ -1,13 +1,20 @@
+const { auth } = require("#middlewares");
+const { userController } = require("#controllers");
+
 const users = (fastify, _opts, next) => {
-	fastify.get("/users", async (request, reply) => {
-		setTimeout(() => {
-			reply.send({
-				message: "Hello World",
-			});
-		}, 3000);
-		await reply;
+	fastify.route({
+		method: "GET",
+		url: "/",
+		preHandler: auth.verifyToken,
+		handler: userController.getUsers,
 	});
 
+	fastify.route({
+		method: "POST",
+		url: "/",
+		preHandler: auth.verifyToken,
+		handler: userController.createUser,
+	});
 	next();
 };
 

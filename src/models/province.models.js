@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const Province = new Schema({
 	name: {
@@ -8,4 +9,5 @@ const Province = new Schema({
 	},
 });
 
+// eslint-disable-next-line
 module.exports = new mongoose.model("Province", Province, "provinces");

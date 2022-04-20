@@ -2,24 +2,12 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"#models": [
-				"src/models/index.js"
-			],
-			"#middlewares": [
-				"src/middlewares/index.js"
-			],
-			"#configs": [
-				"src/configs/index.js"
-			],
-			"#routes": [
-				"src/routes/index.js"
-			],
-			"#controllers": [
-				"src/controllers/index.js"
-			],
-			"#utils": [
-				"src/utils/index.js"
-			]
+			"#models": ["src/models/index.js"],
+			"#middlewares": ["src/middlewares/index.js"],
+			"#configs": ["src/configs/index.js"],
+			"#routes": ["src/routes/index.js"],
+			"#controllers": ["src/controllers/index.js"],
+			"#utils": ["src/utils/index.js"]
 		}
 	}
 }
