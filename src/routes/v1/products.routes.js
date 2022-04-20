@@ -1,5 +1,5 @@
-const { productsController } = require("#controllers");
 const upload = require("multer")({ des: "./uploads" });
+const { productsController } = require("#controllers");
 
 const products = (fastify, opts, next) => {
 	fastify.get(
