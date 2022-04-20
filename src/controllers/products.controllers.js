@@ -1,5 +1,5 @@
-const { Product } = require("#models");
-const { ApiError } = require("#utils");
+const { Product, Wiki } = require("#models");
+const { ApiError, uploadImage } = require("#utils");
 const mongoose = require("mongoose");
 const status = require("http-status");
 
@@ -37,8 +37,16 @@ module.exports = {
 	},
 
 	addProduct: async (request, reply) => {
-		const product = await Product.create(request.body);
-		return reply.code(status.OK).send({ product });
+		const { wiki, ...product } = request.body;
+		if (req.files) {
+			wiki.attachments = req.files.map((file) => {
+				return uploadImage(file.path).secure_url;
+			});
+		}
+		const newWiki = await Wiki.create(wiki);
+		product.wikiId = newWiki._id;
+		const newProduct = await Product.create(product);
+		return reply.code(status.OK).send({ product: newProduct });
 	},
 
 	editProduct: async (request, reply) => {
