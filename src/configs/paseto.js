@@ -1,5 +1,5 @@
 const { V3 } = require("paseto");
-const { config } = require("#configs");
+const config = require("./config");
 
 const pasetoOptions = {
 	iat: false,

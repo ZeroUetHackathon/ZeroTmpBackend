@@ -1,4 +1,4 @@
-const { userService } = require("#services");
+const userService = require("./user.service");
 
 const loginByEmail = async (email, password) => {
 	const user = await userService.getUserByEmail(email);

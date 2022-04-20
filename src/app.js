@@ -14,7 +14,7 @@ const appInit = (opts = {}) => {
 
 	/* -------------------- register msgpack ------------------- */
 	// Send and receive msgpacked message if the frontend request it
-	fastify.register(fastifyMsgpackr());
+	app.register(fastifyMsgpackr);
 
 	/* -------------------- register cors ------------------- */
 	app.register(cors, {
