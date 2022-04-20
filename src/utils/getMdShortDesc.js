@@ -26,7 +26,7 @@ const isUrl = (str) => regex.url.test(str);
 const isCodeBlock = (str) => regex.codeBlock.test(str);
 
 const getMdShortDesc = (md) => {
-	const tokens = md.trim().split("\n");
+	const tokens = md.trim().split("\\n");
 	const lines = tokens.length;
 	for (let i = 0, token = tokens[i]; i < lines; token = tokens[++i]) {
 		if (
