@@ -15,6 +15,7 @@ const config = {
 		DATABASE: process.env.MONGOOSE_DB_NAME,
 	},
 	CORS: {
+		methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 		origin: ["localhost:3000", "http://localhost:3000"],
 		credentials: true,
 		optionsSuccessStatus: 200,

@@ -5,7 +5,7 @@ const products = (fastify, opts, next) => {
 	fastify.get("/product/:productId", productsController.getProductById);
 	fastify.get("/:provinceId", productsController.getProductsByProvince);
 	fastify.route({
-		method: "PUT",
+		method: "PATCH",
 		url: "/product/:productId",
 		preHandler: [upload.array("files")],
 		handler: productsController.editProduct,
