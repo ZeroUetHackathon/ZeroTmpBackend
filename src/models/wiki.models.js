@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const Wiki = new Schema({
 	wiki: String,
@@ -10,4 +11,5 @@ const Wiki = new Schema({
 	attachments: [String],
 });
 
+// eslint-disable-next-line
 module.exports = new mongoose.model("Wiki", Wiki, "wikis");

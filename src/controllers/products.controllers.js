@@ -1,7 +1,7 @@
-const { Product, Wiki } = require("#models");
-const { ApiError, uploadImage } = require("#utils");
 const mongoose = require("mongoose");
 const status = require("http-status");
+const { Product, Wiki } = require("#models");
+const { ApiError } = require("#utils");
 
 module.exports = {
 	getProductsByProvince: async (request, reply) => {
@@ -15,7 +15,7 @@ module.exports = {
 				foreignField: "_id",
 				as: "wiki",
 			});
-		if (products.length == 0)
+		if (products.length === 0)
 			throw new ApiError("Không tìm thấy sản phẩm nào", status.NOT_FOUND);
 		return reply.code(status.OK).send({ products });
 	},
@@ -31,7 +31,7 @@ module.exports = {
 				foreignField: "_id",
 				as: "wiki",
 			});
-		if (product.length == 0)
+		if (product.length === 0)
 			throw new ApiError("Không tìm thấy sản phẩm nào", status.NOT_FOUND);
 		return reply.code(status.OK).send({ product: product[0] });
 	},

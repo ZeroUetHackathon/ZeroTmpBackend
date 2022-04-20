@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const Product = new Schema({
 	name: {
@@ -16,4 +17,5 @@ const Product = new Schema({
 	},
 });
 
+// eslint-disable-next-line
 module.exports = new mongoose.model("Product", Product, "products");

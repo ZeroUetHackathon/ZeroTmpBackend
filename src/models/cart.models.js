@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const Cart = new Schema({
 	userId: {
@@ -20,4 +21,5 @@ const Cart = new Schema({
 	},
 });
 
+// eslint-disable-next-line
 module.exports = new mongoose.model("Cart", Cart, "carts");
