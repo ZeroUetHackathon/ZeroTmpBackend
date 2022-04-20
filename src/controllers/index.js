@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 module.exports = {
-	productsController: require("./products.controller"),
-	authController: require("./auth.controller"),
+	productsController: require("./products.controllers"),
+	authController: require("./auth.controllers"),
 	cartsController: require("./carts.controllers"),
 	wikisController: require("./wikis.controllers"),
 };
