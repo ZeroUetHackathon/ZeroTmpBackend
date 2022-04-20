@@ -7,6 +7,10 @@ const Province = new Schema({
 		type: String,
 		required: true,
 	},
+	code: {
+		type: String,
+		required: true,
+	},
 });
 
 // eslint-disable-next-line
