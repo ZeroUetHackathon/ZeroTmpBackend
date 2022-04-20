@@ -15,6 +15,7 @@ const Product = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: "Province",
 	},
+	shortDescription: String,
 });
 
 // eslint-disable-next-line

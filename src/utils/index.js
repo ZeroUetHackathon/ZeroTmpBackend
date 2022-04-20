@@ -4,4 +4,5 @@ module.exports = {
 	validator: require("./validator"),
 	ApiError: require("./ApiError"),
 	uploadImage: require("./uploadImage"),
+	getMdShortDesc: require("./getMdShortDesc"),
 };

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const status = require("http-status");
 const { Product, Wiki } = require("#models");
-const { ApiError, uploadImage } = require("#utils");
+const { ApiError, uploadImage, getMdShortDesc } = require("#utils");
 
 module.exports = {
 	getProductsByProvince: async (request, reply) => {
@@ -44,6 +44,7 @@ module.exports = {
 			});
 		}
 		const newWiki = await Wiki.create(wiki);
+		product.shortDescription = getMdShortDesc(newWiki.wiki);
 		product.wikiId = newWiki._id;
 		const newProduct = await Product.create(product);
 		return reply.code(status.OK).send({ product: newProduct });
