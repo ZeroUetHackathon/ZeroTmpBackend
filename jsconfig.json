@@ -23,6 +23,9 @@
 			"#constants": [
 				"src/constants/index.js"
 			],
+			"#services": [
+				"src/services/index.js"
+			],
 		}
 	}
 }

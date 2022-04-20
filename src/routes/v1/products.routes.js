@@ -2,8 +2,8 @@ const upload = require("multer")({ des: "./uploads" });
 const { productsController } = require("#controllers");
 
 const products = (fastify, opts, next) => {
-	fastify.get("/:provinceId", productsController.getProductsByProvince);
 	fastify.get("/product/:productId", productsController.getProductById);
+	fastify.get("/:provinceId", productsController.getProductsByProvince);
 	fastify.route({
 		method: "PUT",
 		url: "/product/:productId",

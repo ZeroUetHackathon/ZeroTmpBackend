@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const status = require("http-status");
 const { Product, Wiki } = require("#models");
+const { mongooseService } = require("#services");
 const { ApiError, uploadImage, getMdShortDesc } = require("#utils");
 
 module.exports = {
@@ -12,47 +13,7 @@ module.exports = {
 					provinceId: new mongoose.Types.ObjectId(request.params.provinceId),
 				},
 			},
-			// lookup to get the wiki
-			{
-				$lookup: {
-					from: "wikis",
-					localField: "wikiId",
-					foreignField: "_id",
-					// split the placeholders into an array
-					pipeline: [
-						{ $project: { wiki: { $split: ["$wiki", "{}"] }, attachments: 1 } },
-					],
-					as: "wiki",
-				},
-			},
-			// remove array bracket
-			{ $unwind: "$wiki" },
-			// add attachments into wiki placeholder {}
-			{
-				$set: {
-					wiki: {
-						$map: {
-							input: {
-								// make an array of indexes of wiki attachments
-								$range: [0, { $size: "$wiki.attachments" }],
-							},
-							// so that we can access to map elements using $$this
-							as: "this",
-							in: {
-								// concat the attachments into placeholders
-								$concat: [
-									// wiki first
-									{ $arrayElemAt: ["$wiki.wiki", "$$this"] },
-									// then attachments
-									{ $arrayElemAt: ["$wiki.attachments", "$$this"] },
-								],
-							},
-						},
-					},
-				},
-			},
-			// unwind map elements
-			{ $unwind: "$wiki" },
+			...mongooseService.addAttachmentsToWikiPlaceholder,
 		]);
 		if (products.length === 0)
 			throw new ApiError("Không tìm thấy sản phẩm nào", status.NOT_FOUND);
@@ -60,17 +21,15 @@ module.exports = {
 	},
 
 	getProductById: async (request, reply) => {
-		const product = await Product.aggregate()
+		const product = await Product.aggregate([
 			// match _id field
-			.match({ _id: new mongoose.Types.ObjectId(request.params.productId) })
-			// lookup to get the wiki
-			.lookup({
-				from: "wikis",
-				localField: "wikiId",
-				foreignField: "_id",
-				as: "wiki",
-			})
-			.unwind("$wiki");
+			{
+				$match: {
+					_id: new mongoose.Types.ObjectId(request.params.productId),
+				},
+			},
+			...mongooseService.addAttachmentsToWikiPlaceholder,
+		]);
 		if (product.length === 0)
 			throw new ApiError("Không tìm thấy sản phẩm nào", status.NOT_FOUND);
 		return reply.code(status.OK).send({ product: product[0] });
