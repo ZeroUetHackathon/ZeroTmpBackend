@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const status = require("http-status");
 const { Product, Wiki } = require("#models");
-const { ApiError } = require("#utils");
+const { ApiError, uploadImage } = require("#utils");
 
 module.exports = {
 	getProductsByProvince: async (request, reply) => {
@@ -38,8 +38,8 @@ module.exports = {
 
 	addProduct: async (request, reply) => {
 		const { wiki, ...product } = request.body;
-		if (req.files) {
-			wiki.attachments = req.files.map((file) => {
+		if (request.files) {
+			wiki.attachments = request.files.map((file) => {
 				return uploadImage(file.path).secure_url;
 			});
 		}
