@@ -1,8 +1,15 @@
-// eslint-disable-next-line
-const { tokenService } = require("#services");
+const { tokenService, userService } = require("#services");
 
-// eslint-disable-next-line
-const verifyToken = async (res, rep, done) => {};
+const verifyToken = async (req, _, done) => {
+	const { zeroToken, zeroRefreshToken } = req.unsignCookie(
+		req.cookies.cookieSigned
+	);
+	const user = await tokenService.verifyToken(zeroToken, zeroRefreshToken);
+	req.refreshToken = zeroRefreshToken;
+	req.user = userService.getPublicInfoUser(user);
+
+	done();
+};
 
 module.exports = {
 	verifyToken,

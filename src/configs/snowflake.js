@@ -1,7 +1,8 @@
 const { Snowflake } = require("nodejs-snowflake");
 
 const snowflake = new Snowflake({
-	custom_epoch: new Date("Jan 1 2022").getTime(),
+	// custom_epoch: new Date("Jan 1 2022").getTime(),
+	custom_epoch: new Date("2014-10-01").getTime(),
 });
 
 /*
@@ -18,7 +19,15 @@ const getUniqueID = () => snowflake.getUniqueID().toString();
 const getTimestampFromID = (id) =>
 	Snowflake.timestampFromID(id, snowflake.customEpoch);
 
+/*
+ * Get an id from a timestamp
+ * @param {number} timestamp
+ * @return {BigInt} id
+ */
+const idFromTimestamp = (timestamp) => snowflake.idFromTimestamp(timestamp);
+
 module.exports = {
 	getUniqueID,
 	getTimestampFromID,
+	idFromTimestamp,
 };

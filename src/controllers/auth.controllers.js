@@ -1,6 +1,6 @@
 const status = require("http-status");
 const { authService, userService } = require("#services");
-const { paseto, snowflake, config } = require("#configs");
+const { config } = require("#configs");
 
 // eslint-disable-next-line
 const auth = async (req, rep) => {
@@ -14,8 +14,8 @@ const login = async (req, rep) => {
 	req.log.info(`User ${user.name} just login.`);
 
 	const publicUser = userService.getPublicInfoUser(user);
-	const token = paseto.encrypt(publicUser);
-	const refreshToken = snowflake.getUniqueID();
+	const [token, refreshToken] = authService.setupUserTokens(user, publicUser);
+
 	return rep
 		.status(status.ACCEPTED)
 		.cookie("zeroToken", token, {
@@ -40,8 +40,8 @@ const register = async (req, rep) => {
 	req.log.info(`User ${user.name} just register.`);
 
 	const publicUser = userService.getPublicInfoUser(user);
-	const token = paseto.encrypt(publicUser);
-	const refreshToken = snowflake.getUniqueID();
+	const [token, refreshToken] = authService.setupUserTokens(user, publicUser);
+
 	return rep
 		.status(status.ACCEPTED)
 		.cookie("zeroToken", token, {
@@ -60,6 +60,7 @@ const register = async (req, rep) => {
 };
 
 const logout = async (req, rep) => {
+	await global.redis.logout("zero_token", req.refreshToken);
 	return rep.status(status.ACCEPTED).send({ msg: "Logout Successfully" });
 };
 
