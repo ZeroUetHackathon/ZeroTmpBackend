@@ -36,16 +36,29 @@ module.exports = {
 	},
 
 	addProduct: async (request, reply) => {
-		const { wiki, ...product } = request.body;
-		if (request.files) {
-			wiki.attachments = request.files.map((file) => {
-				return uploadImage(file.path).secure_url;
-			});
+		const wiki = {
+			wiki: request.body.wiki,
+		};
+		const product = {
+			name: request.body.name,
+			provinceId: request.params.provinceId,
+		};
+		if (request.body.files) {
+			wiki.attachments = await Promise.all(
+				request.body.files.map(async (file) => {
+					const result = await uploadImage(
+						Buffer.from(file.data).toString("base64"),
+						file.mimetype
+					);
+					return result.secure_url;
+				})
+			);
 		}
 		const newWiki = await Wiki.create(wiki);
 		product.shortDescription = getMdShortDesc(newWiki.wiki);
 		product.wikiId = newWiki._id;
 		const newProduct = await Product.create(product);
+		await newProduct.populate("wikiId provinceId");
 		return reply.code(status.OK).send({ product: newProduct });
 	},
 
