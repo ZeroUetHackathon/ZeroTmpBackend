@@ -38,11 +38,11 @@
 		"fastify-accepts-serializer": "^3.2.0",
 		"fastify-cookie": "^5.6.1",
 		"fastify-cors": "^6.0.3",
+		"fastify-multipart": "^5.3.1",
 		"fastify-plugin": "^3.0.1",
 		"http-status": "^1.5.1",
 		"mongoose": "^6.3.0",
 		"msgpackr": "^1.5.6",
-		"multer": "^1.4.4",
 		"nodejs-snowflake": "^2.0.1",
 		"paseto": "^3.1.0"
 	},

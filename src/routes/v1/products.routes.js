@@ -1,22 +1,11 @@
-const upload = require("multer")({ des: "./uploads" });
 const { productsController } = require("#controllers");
 
 const products = (fastify, opts, next) => {
 	fastify.get("/product/:productId", productsController.getProductById);
-	fastify.get("/:provinceId", productsController.getProductsByProvince);
-	fastify.route({
-		method: "PUT",
-		url: "/product/:productId",
-		preHandler: [upload.array("files")],
-		handler: productsController.editProduct,
-	});
+	fastify.put("/product/:productId", productsController.editProduct);
 	fastify.delete("/product/:productId", productsController.deleteProduct);
-	fastify.route({
-		method: "POST",
-		url: "/product",
-		preHandler: [upload.array("files")],
-		handler: productsController.addProduct,
-	});
+	fastify.get("/:provinceId", productsController.getProductsByProvince);
+	fastify.post("/:provinceId", productsController.addProduct);
 	next();
 };
 

@@ -1,13 +1,16 @@
 const fastify = require("fastify");
 const cookie = require("fastify-cookie");
 const cors = require("fastify-cors");
-const { errorHandler, notFoundHandler } = require("#middlewares");
+const fastifyMultipart = require("fastify-multipart");
+const {
+	errorHandler,
+	notFoundHandler,
+	fastifyMsgpackr,
+} = require("#middlewares");
 
 const { db, config } = require("#configs");
 
 const { users, auth, products } = require(`#routes`)[config.API_VERSION];
-
-const { fastifyMsgpackr } = require("#middlewares");
 
 const appInit = (opts = {}) => {
 	const app = fastify(opts);
@@ -15,6 +18,11 @@ const appInit = (opts = {}) => {
 	/* -------------------- register msgpack ------------------- */
 	// Send and receive msgpacked message if the frontend request it
 	app.register(fastifyMsgpackr);
+
+	/* ---------- add multipart support (form-data) --------- */
+	app.register(fastifyMultipart, {
+		addToBody: true,
+	});
 
 	/* -------------------- register cors ------------------- */
 	app.register(cors, {
