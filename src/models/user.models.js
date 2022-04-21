@@ -66,5 +66,4 @@ User.pre("save", async function (next) {
 	return next();
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("User", User, "users");
+module.exports = mongoose.model("User", User, "users");

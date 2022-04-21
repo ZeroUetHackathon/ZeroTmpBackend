@@ -14,5 +14,4 @@ const Sale = new Schema({
 	price: Number,
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Sale", Sale, "sales");
+module.exports = mongoose.model("Sale", Sale, "sales");

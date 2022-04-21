@@ -13,5 +13,4 @@ const Province = new Schema({
 	},
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Province", Province, "provinces");
+module.exports = mongoose.model("Province", Province, "provinces");

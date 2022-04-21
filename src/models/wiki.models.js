@@ -11,5 +11,4 @@ const Wiki = new Schema({
 	attachments: [String],
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Wiki", Wiki, "wikis");
+module.exports = mongoose.model("Wiki", Wiki, "wikis");

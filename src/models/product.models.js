@@ -18,5 +18,4 @@ const Product = new Schema({
 	shortDescription: String,
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Product", Product, "products");
+module.exports = mongoose.model("Product", Product, "products");
