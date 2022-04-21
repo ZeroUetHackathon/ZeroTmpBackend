@@ -8,6 +8,10 @@ const Wiki = new Schema({
 		type: String,
 		default: false,
 	},
+	productId: {
+		type: Schema.Types.ObjectId,
+		ref: "Product",
+	},
 	attachments: [String],
 });
 
