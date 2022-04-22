@@ -12,6 +12,8 @@ const Sale = new Schema({
 		default: "normal",
 	},
 	price: Number,
+	sold: Number,
+	discount: Number,
 });
 
 module.exports = mongoose.model("Sale", Sale, "sales");
