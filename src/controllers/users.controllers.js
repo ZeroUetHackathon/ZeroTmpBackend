@@ -1,5 +1,6 @@
 const status = require("http-status");
 const { userService } = require("#services");
+const { Shop } = require("#models");
 
 const getUsers = async (req, rep) => {
 	// If use not admin -> throw error
@@ -22,7 +23,13 @@ const createUser = async (req, rep) => {
 		.send({ msg: "Register Successfully", user: publicUser });
 };
 
+const addShop = async (request, reply) => {
+	await Shop.create(request.body);
+	return reply.code(status.OK).send({ message: "Tạo cửa hàng thành công!" });
+};
+
 module.exports = {
 	getUsers,
 	createUser,
+	addShop,
 };
