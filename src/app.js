@@ -10,7 +10,8 @@ const {
 
 const { db, config } = require("#configs");
 
-const { users, auth, products } = require(`#routes`)[config.API_VERSION];
+const { users, auth, products, sales, shops } =
+	require(`#routes`)[config.API_VERSION];
 
 const appInit = (opts = {}) => {
 	const app = fastify(opts);
@@ -43,6 +44,8 @@ const appInit = (opts = {}) => {
 	app.register(users, { prefix: `/${config.API_VERSION}/users` });
 	app.register(auth, { prefix: `/${config.API_VERSION}/auth` });
 	app.register(products, { prefix: `/${config.API_VERSION}/products` });
+	app.register(sales, { prefix: `/${config.API_VERSION}/sales` });
+	app.register(shops, { prefix: `/${config.API_VERSION}/shops` });
 
 	/* --------------- not found route handler -------------- */
 	app.setNotFoundHandler(notFoundHandler);
