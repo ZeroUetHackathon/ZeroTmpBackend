@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const status = require("http-status");
-const { Product, Province } = require("#models");
+const { Product, Province, Sale } = require("#models");
 const { mongooseService } = require("#services");
 const { ApiError } = require("#utils");
 
@@ -79,6 +79,9 @@ module.exports = {
 	},
 
 	addProduct: async (request, reply) => {
+		const sales = request.body.sales.map((sale) =>
+			Object.assign(sale, { productId: request.params.productId })
+		);
 		const product = {
 			name: request.body.name,
 			category: request.body.category,
@@ -86,6 +89,7 @@ module.exports = {
 			provinceId: request.params.provinceId,
 		};
 		await Product.create(product);
+		await Sale.insertMany(sales);
 		return reply.code(status.OK).send({ message: "Tạo sản phẩm thành công" });
 	},
 
