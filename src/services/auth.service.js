@@ -5,7 +5,7 @@ const loginByEmail = async (email, password) => {
 
 	/* eslint-disable */
 	if (!user || !(await user?.isPasswordMatch(password)))
-		throw new ApiError(httpStatus.UNAUTHORIZED, "Incorrect email or password!");
+		throw new ApiError("Incorrect email or password!", httpStatus.UNAUTHORIZED);
 	/* eslint-enable */
 
 	return user;

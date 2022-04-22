@@ -15,15 +15,13 @@ module.exports = {
 			request.body,
 			{ new: true }
 		);
-		if (!cart)
-			throw new ApiError("Không tìm thấy giỏ hàng nào", status.NOT_FOUND);
+		if (!cart) throw new ApiError(status.NOT_FOUND, "Cart not found");
 		return reply.code(status.OK).send({ cart });
 	},
 	deleteCart: async (request, reply) => {
 		// return the deleted cart
 		const cart = await Cart.findByIdAndDelete(request.params.cartId);
-		if (!cart)
-			throw new ApiError("Không tìm thấy giỏ hàng nào", status.NOT_FOUND);
+		if (!cart) throw new ApiError(status.NOT_FOUND, "Cart not found");
 		return reply.code(status.OK).send({ cart });
 	},
 	getCartById: async (request, reply) => {
@@ -44,7 +42,7 @@ module.exports = {
 			.unwind("$sale")
 			.unwind("$user");
 		if (cart.length === 0)
-			throw new ApiError("Không tìm thấy giỏ hàng nào", status.NOT_FOUND);
+			throw new ApiError(status.NOT_FOUND, "Cart not found");
 		return reply.code(status.OK).send({ cart: cart[0] });
 	},
 	getAllCartsByUserId: async (request, reply) => {
@@ -65,7 +63,7 @@ module.exports = {
 			.unwind("$sale")
 			.unwind("$user");
 		if (carts.length === 0)
-			throw new ApiError("Không tìm thấy giỏ hàng nào", status.NOT_FOUND);
+			throw new ApiError(status.NOT_FOUND, "Cart not found");
 		return reply.code(status.OK).send({ carts });
 	},
 };
