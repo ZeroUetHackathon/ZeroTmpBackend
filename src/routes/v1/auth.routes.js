@@ -3,14 +3,14 @@ const { authHandler } = require("#middlewares");
 
 const auth = (fastify, _opts, done) => {
 	fastify.get(
-		"/auth",
+		"/",
 		{ preHandler: authHandler.verifyToken },
 		authController.auth
 	);
-	fastify.post("/auth/login", authController.login);
-	fastify.post("/auth/register", authController.register);
-	fastify.get(
-		"/auth/logout",
+	fastify.post("/login", authController.login);
+	fastify.post("/register", authController.register);
+	fastify.post(
+		"/logout",
 		{ preHandler: authHandler.verifyToken },
 		authController.logout
 	);

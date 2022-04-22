@@ -3,21 +3,28 @@ const { authService, userService } = require("#services");
 const { config } = require("#configs");
 
 // eslint-disable-next-line
-const auth = async (req, rep) => {
-	return rep.status(status.ACCEPTED).send({ user: req.user });
-};
+const auth = async (req, rep) => rep.code(status.ACCEPTED).send({ user: req.user });
 
 const login = async (req, rep) => {
 	const { email, password } = req.body;
-	const user = authService.loginByEmail(email, password);
+	const user = await authService.loginByEmail(email, password);
+
+	// logout if previously logged in
+	const zeroRefreshToken = req.unsignCookie(req.cookies.zeroRefreshToken);
+	if (zeroRefreshToken && zeroRefreshToken?.valid)
+		await authService.logout(zeroRefreshToken.value);
 
 	req.log.info(`User ${user.name} just login.`);
 
 	const publicUser = userService.getPublicInfoUser(user);
-	const [token, refreshToken] = authService.setupUserTokens(user, publicUser);
+	const [token, refreshToken] = await authService.setupUserTokens(
+		user,
+		publicUser,
+		req.headers
+	);
 
 	return rep
-		.status(status.ACCEPTED)
+		.code(status.ACCEPTED)
 		.cookie("zeroToken", token, {
 			expires: new Date(Date.now() + config.TOKEN.TOKEN_EXPIRE),
 			secure: config.ENV === "production",
@@ -43,7 +50,7 @@ const register = async (req, rep) => {
 	const [token, refreshToken] = authService.setupUserTokens(user, publicUser);
 
 	return rep
-		.status(status.ACCEPTED)
+		.code(status.ACCEPTED)
 		.cookie("zeroToken", token, {
 			expires: new Date(Date.now() + config.TOKEN.TOKEN_EXPIRE),
 			secure: config.ENV === "production",
@@ -60,8 +67,8 @@ const register = async (req, rep) => {
 };
 
 const logout = async (req, rep) => {
-	await global.redis.logout("zero_token", req.refreshToken);
-	return rep.status(status.ACCEPTED).send({ msg: "Logout Successfully" });
+	await authService.logout(req.refreshToken);
+	return rep.code(status.ACCEPTED).send({ msg: "Logout Successfully" });
 };
 
 module.exports = {

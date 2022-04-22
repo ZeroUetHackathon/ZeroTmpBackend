@@ -17,7 +17,7 @@ const getUniqueID = () => snowflake.getUniqueID().toString();
  * @return {number} timestamp
  */
 const getTimestampFromID = (id) =>
-	Snowflake.timestampFromID(id, snowflake.customEpoch);
+	Snowflake.timestampFromID(id, snowflake.customEpoch());
 
 /*
  * Get an id from a timestamp

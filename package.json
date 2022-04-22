@@ -46,6 +46,7 @@
 		"msgpackr": "^1.5.6",
 		"nodejs-snowflake": "^2.0.1",
 		"paseto": "^3.1.0",
+		"pino-pretty": "^7.6.1",
 		"ua-parser-js": "^1.0.2"
 	},
 	"devDependencies": {

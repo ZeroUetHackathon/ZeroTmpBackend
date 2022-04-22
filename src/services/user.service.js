@@ -11,7 +11,13 @@ const getUserByEmail = async (email) => User.findOne({ email });
  * Get users
  * @returns {Promise<User[]>}
  */
-const getUsers = async () => User.findOne({});
+const getUsers = async () => User.find();
+
+/**
+ * Get user
+ * @returns {Promise<User>}
+ */
+const getUser = async (userId) => User.findById(userId);
 
 /**
  * Get user's information reduced for the client
@@ -42,10 +48,15 @@ const getPublicInfoUsers = async () =>
 const createUser = async (name, email, password, role = 3) =>
 	User.create({ name, email, password, role });
 
+const updateUser = async (userBody, userId) =>
+	User.findByIdAndUpdate(userId, userBody, { new: true });
+
 module.exports = {
 	getUserByEmail,
 	getUsers,
+	getUser,
 	getPublicInfoUsers,
 	getPublicInfoUser,
 	createUser,
+	updateUser,
 };

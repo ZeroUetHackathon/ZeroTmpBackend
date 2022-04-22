@@ -1,7 +1,16 @@
 const appInit = require("./app");
 const { config } = require("#configs");
 
-const server = appInit({ logger: true });
+const server = appInit({
+	logger: {
+		prettyPrint: {
+			translateTime: true,
+			ignore: "pid,hostname,reqId,responseTime,req,res",
+			messageFormat:
+				"{msg} [id={reqId} {req.method} {req.url}:> {responseTime}]",
+		},
+	},
+});
 
 server.listen(
 	config.BASE.PORT || 5000,

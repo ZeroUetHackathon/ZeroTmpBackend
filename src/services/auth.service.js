@@ -1,6 +1,5 @@
-const ua = require("ua-parser-js");
 const userService = require("./user.service");
-const { paseto, snowflake } = require("#configs");
+const { paseto, snowflake, ua } = require("#configs");
 
 const loginByEmail = async (email, password) => {
 	const user = await userService.getUserByEmail(email);
@@ -13,17 +12,17 @@ const loginByEmail = async (email, password) => {
 	return user;
 };
 
-const setupUserTokens = async (user, publicUser) => {
-	const token = paseto.encrypt(publicUser);
+const setupUserTokens = async (user, publicUser, headers) => {
+	const token = await paseto.encode(publicUser);
 	const refreshToken = snowflake.getUniqueID();
 	const sessionId = snowflake.getUniqueID();
-	const { browser, os } = ua.parse(req.headers["user-agent"]);
+	const { browser, os } = ua.parse(headers["user-agent"]);
 	const sessionDevice = `${browser.name || ""} ${browser.version || ""} ${
 		os.name || ""
 	} ${os.version || ""}`;
 	await global.redis.zadd(
 		"zero_token",
-		snowflake.getUniqueID(),
+		refreshToken,
 		`${sessionId}${user._id}${sessionDevice}`
 	);
 
@@ -35,7 +34,7 @@ const setupUserTokens = async (user, publicUser) => {
  * @param {String} refreshToken - refresh token
  */
 const logout = async (refreshToken) =>
-	global.redis.logout("zero_token", refreshToken);
+	global.redis.logout("zero_token", "zero_blacklist", refreshToken);
 
 module.exports = {
 	loginByEmail,

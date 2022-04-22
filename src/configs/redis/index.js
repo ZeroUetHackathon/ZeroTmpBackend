@@ -12,7 +12,7 @@ class Redis extends IoRedis {
 		});
 
 		this.defineCommand("logout", {
-			numberOfKeys: 1,
+			numberOfKeys: 2,
 			lua: fs.readFileSync(path.resolve(__dirname, "logout.lua"), "utf8"),
 		});
 	}

@@ -5,6 +5,7 @@ module.exports = {
 	snowflake: require("./snowflake"),
 	msgpackr: require("./msgpackr"),
 	db: require("./db"),
+	ua: require("./ua"),
 	Redis: require("./redis"),
 	models: {
 		roles: require("./models/roles"),
