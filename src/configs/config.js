@@ -33,7 +33,10 @@ const config = {
 	},
 
 	get DBUri() {
-		return `mongodb://${this.DB.HOST}:${this.DB.PORT}/${this.DB.DATABASE}`;
+		return (
+			process.env.MONGOOSE_URL ||
+			`mongodb://${this.DB.HOST}:${this.DB.PORT}/${this.DB.DATABASE}`
+		);
 	},
 };
 
