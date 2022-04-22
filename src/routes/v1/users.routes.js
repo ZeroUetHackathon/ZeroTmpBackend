@@ -15,6 +15,8 @@ const users = (fastify, _opts, next) => {
 		preHandler: auth.verifyToken,
 		handler: usersController.createUser,
 	});
+
+	fastify.post("/add/:userId", usersController.addShop);
 	next();
 };
 
