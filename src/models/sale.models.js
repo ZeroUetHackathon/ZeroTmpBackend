@@ -12,7 +12,10 @@ const Sale = new Schema({
 		default: "normal",
 	},
 	price: Number,
+	sold: Number,
+	discount: Number,
+	numbers: Number,
+	attachments: [String],
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Sale", Sale, "sales");
+module.exports = mongoose.model("Sale", Sale, "sales");

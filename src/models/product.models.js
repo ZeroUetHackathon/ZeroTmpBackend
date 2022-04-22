@@ -6,6 +6,7 @@ const Product = new Schema({
 	name: {
 		type: String,
 		required: true,
+		text: true,
 	},
 	wikiId: {
 		type: Schema.Types.ObjectId,
@@ -16,7 +17,12 @@ const Product = new Schema({
 		ref: "Province",
 	},
 	shortDescription: String,
+	expire: Date,
+	category: String,
+	shopId: {
+		type: Schema.Types.ObjectId,
+		ref: "Shop",
+	},
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Product", Product, "products");
+module.exports = mongoose.model("Product", Product, "products");

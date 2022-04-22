@@ -21,5 +21,4 @@ const Cart = new Schema({
 	},
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Cart", Cart, "carts");
+module.exports = mongoose.model("Cart", Cart, "carts");

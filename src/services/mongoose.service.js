@@ -1,26 +1,20 @@
 module.exports = {
 	addAttachmentsToWikiPlaceholder: [
+		// lookup to get province
 		{
-			// lookup to get province
-			$lookup: {
-				from: "provinces",
-				localField: "provinceId",
-				foreignField: "_id",
-				as: "province",
-			},
-		},
-		{ $unwind: "$province" },
-		// set province to province name
-		{ $set: { province: "$province.name" } },
-		// lookup to get the wiki
-		{
+			// lookup to get the wiki
 			$lookup: {
 				from: "wikis",
 				localField: "wikiId",
 				foreignField: "_id",
 				// split the placeholders into an array
 				pipeline: [
-					{ $project: { wiki: { $split: ["$wiki", "{}"] }, attachments: 1 } },
+					{
+						$project: {
+							wiki: { $split: ["$wiki", "{}"] },
+							attachments: 1,
+						},
+					},
 				],
 				as: "wiki",
 			},
@@ -52,7 +46,9 @@ module.exports = {
 										{
 											$eq: [
 												"$$this",
-												{ $subtract: [{ $size: "$wiki.attachments" }, 1] },
+												{
+													$subtract: [{ $size: "$wiki.attachments" }, 1],
+												},
 											],
 										},
 										")",

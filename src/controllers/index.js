@@ -5,4 +5,5 @@ module.exports = {
 	cartsController: require("./carts.controllers"),
 	wikisController: require("./wikis.controllers"),
 	usersController: require("./users.controllers"),
+	salesController: require("./sales.controllers"),
 };

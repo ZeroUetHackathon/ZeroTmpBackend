@@ -13,4 +13,11 @@ const uploadImage = (image, mimetype) => {
 	});
 };
 
-module.exports = uploadImage;
+const deleteImage = (image) => {
+	return cloudinary.uploader.destroy(image);
+};
+
+module.exports = {
+	uploadImage,
+	deleteImage,
+};

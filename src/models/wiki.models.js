@@ -8,8 +8,11 @@ const Wiki = new Schema({
 		type: String,
 		default: false,
 	},
+	productId: {
+		type: Schema.Types.ObjectId,
+		ref: "Product",
+	},
 	attachments: [String],
 });
 
-// eslint-disable-next-line
-module.exports = new mongoose.model("Wiki", Wiki, "wikis");
+module.exports = mongoose.model("Wiki", Wiki, "wikis");

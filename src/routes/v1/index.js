@@ -4,4 +4,6 @@ module.exports = {
 	users: require("./users.routes"),
 	products: require("./products.routes"),
 	carts: require("./carts.routes"),
+	sales: require("./sales.routes"),
+	shops: require("./shops.routes"),
 };
