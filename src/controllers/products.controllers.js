@@ -1,16 +1,52 @@
 const mongoose = require("mongoose");
 const status = require("http-status");
-const { Product, Wiki } = require("#models");
+const { Product, Province } = require("#models");
 const { mongooseService } = require("#services");
-const { ApiError, uploadImage, getMdShortDesc } = require("#utils");
+const { ApiError } = require("#utils");
 
 module.exports = {
 	getProductsByProvince: async (request, reply) => {
-		const products = await Product.aggregate([
+		const products = await Province.aggregate([
 			// match provinceId
 			{
 				$match: {
-					provinceId: new mongoose.Types.ObjectId(request.params.provinceId),
+					_id: new mongoose.Types.ObjectId(request.params.provinceId),
+				},
+			},
+			// lookup products
+			{
+				$lookup: {
+					from: "products",
+					localField: "_id",
+					foreignField: "provinceId",
+					pipeline: [
+						// lookup sales
+						{
+							$lookup: {
+								from: "sales",
+								localField: "_id",
+								foreignField: "productId",
+								as: "sale",
+							},
+						},
+						// get the total sold of all sales
+						{
+							$addFields: {
+								totalSold: {
+									$reduce: {
+										input: "$sale",
+										initialValue: 0,
+										in: {
+											$sum: ["$$this.sold", "$$value"],
+										},
+									},
+								},
+							},
+						},
+						// sort by total sold
+						{ $sort: { totalSold: -1 } },
+					],
+					as: "products",
 				},
 			},
 			...mongooseService.addAttachmentsToWikiPlaceholder,
@@ -28,7 +64,14 @@ module.exports = {
 					_id: new mongoose.Types.ObjectId(request.params.productId),
 				},
 			},
-			...mongooseService.addAttachmentsToWikiPlaceholder,
+			{
+				$lookup: {
+					from: "sales",
+					localField: "_id",
+					foreignField: "productId",
+					as: "sales",
+				},
+			},
 		]);
 		if (product.length === 0)
 			throw new ApiError("Không tìm thấy sản phẩm nào", status.NOT_FOUND);
@@ -36,34 +79,17 @@ module.exports = {
 	},
 
 	addProduct: async (request, reply) => {
-		const wiki = {
-			wiki: request.body.wiki,
-		};
 		const product = {
 			name: request.body.name,
+			category: request.body.category,
+			expire: request.body.expire,
 			provinceId: request.params.provinceId,
 		};
-		if (request.body.files) {
-			wiki.attachments = await Promise.all(
-				request.body.files.map(async (file) => {
-					const result = await uploadImage(
-						Buffer.from(file.data).toString("base64"),
-						file.mimetype
-					);
-					return result.secure_url;
-				})
-			);
-		}
-		const newWiki = await Wiki.create(wiki);
-		product.shortDescription = getMdShortDesc(newWiki.wiki);
-		product.wikiId = newWiki._id;
-		const newProduct = await Product.create(product);
-		await newProduct.populate("wikiId provinceId");
-		return reply.code(status.OK).send({ product: newProduct });
+		await Product.create(product);
+		return reply.code(status.OK).send({ message: "Tạo sản phẩm thành công" });
 	},
 
 	editProduct: async (request, reply) => {
-		// use {new: true} to return the updated product
 		const product = await Product.findByIdAndUpdate(
 			request.params.productId,
 			request.body,
@@ -71,7 +97,9 @@ module.exports = {
 		);
 		if (!product)
 			throw new ApiError("Không tìm thấy sản phẩm nào", status.NOT_FOUND);
-		return reply.code(status.OK).send({ product });
+		return reply
+			.code(status.OK)
+			.send({ message: "Chỉnh sửa sản phẩm thành công" });
 	},
 
 	deleteProduct: async (request, reply) => {

@@ -11,6 +11,10 @@ const Province = new Schema({
 		type: String,
 		required: true,
 	},
+	wikiId: {
+		type: Schema.Types.ObjectId,
+		ref: "Wiki",
+	},
 });
 
 module.exports = mongoose.model("Province", Province, "provinces");
