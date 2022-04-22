@@ -13,8 +13,9 @@ const encode = async (obj) =>
 		config.TOKEN.SECRET,
 		pasetoOptions
 	);
+
 const decode = async (token) => {
-	const obj = V3.decrypt(token, config.TOKEN.SECRET, pasetoOptions);
+	const obj = await V3.decrypt(token, config.TOKEN.SECRET, pasetoOptions);
 	if (
 		parseInt(obj.at, 32) - Math.floor(Date.now() / 1000) >
 		config.TOKEN.TOKEN_EXPIRE / 1000

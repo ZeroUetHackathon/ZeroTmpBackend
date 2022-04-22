@@ -1,0 +1,7 @@
+#!/bin/sh
+
+curl --cookie cookie.txt \
+			--cookie-jar cookie.txt \
+			-s \
+			-X 'GET' \
+			'0.0.0.0:5000/v1/auth'

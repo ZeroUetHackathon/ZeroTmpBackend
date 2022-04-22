@@ -8,13 +8,16 @@ const {
 	fastifyMsgpackr,
 } = require("#middlewares");
 
-const { db, config } = require("#configs");
+const { db, config, Redis } = require("#configs");
 
 const { users, auth, products, sales, shops } =
 	require(`#routes`)[config.API_VERSION];
 
 const appInit = (opts = {}) => {
 	const app = fastify(opts);
+
+	const redis = new Redis(6379);
+	global.redis = redis;
 
 	/* -------------------- register msgpack ------------------- */
 	// Send and receive msgpacked message if the frontend request it

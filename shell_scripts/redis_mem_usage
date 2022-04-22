@@ -1,0 +1,3 @@
+#!/bin/sh
+
+redis-cli info memory | grep 'used_memory.*human'

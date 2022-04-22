@@ -10,11 +10,13 @@ const config = {
 	},
 	API_VERSION: "v1",
 	DB: {
+		URL: process.env.MONGOOSE_URL,
 		HOST: process.env.MONGOOSE_HOST,
 		PORT: process.env.MONGOOSE_PORT,
 		DATABASE: process.env.MONGOOSE_DB_NAME,
 	},
 	CORS: {
+		methods: ["GET", "POST", "PATCH", "DELETE"],
 		origin: ["localhost:3000", "http://localhost:3000"],
 		credentials: true,
 		optionsSuccessStatus: 200,
@@ -22,6 +24,9 @@ const config = {
 	TOKEN: {
 		SECRET: `k3.local.${process.env.TOKEN_SECRET}`,
 		TOKEN_EXPIRE: process.env.TOKEN_EXPIRE_HOURS * 60 * 60 * 1000,
+		REFRESH_TOKEN_EXPIRE:
+			process.env.REFRESH_TOKEN_EXPIRE_WEEKS * 7 * 24 * 60 * 60 * 1000,
+		REFRESH_TOKEN_EXPIRE_WEEKS: process.env.REFRESH_TOKEN_EXPIRE_WEEKS,
 	},
 	COOKIE: {
 		SECRET: process.env.COOKIE_SECRET,
@@ -34,7 +39,7 @@ const config = {
 
 	get DBUri() {
 		return (
-			process.env.MONGOOSE_URL ||
+			this.DB.URL ||
 			`mongodb://${this.DB.HOST}:${this.DB.PORT}/${this.DB.DATABASE}`
 		);
 	},

@@ -39,9 +39,9 @@ const User = new Schema({
 		},
 	},
 	role: {
-		type: Number,
+		type: [Number],
 		// role guest = 3
-		default: 3,
+		default: [0],
 	},
 	isVerified: {
 		type: Boolean,

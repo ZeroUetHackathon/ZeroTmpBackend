@@ -15,7 +15,7 @@
 		"#services": "./src/services/index.js"
 	},
 	"scripts": {
-		"test": "node _test_api/test.js",
+		"test": "node test.js",
 		"dev": "nodemon --trace-warnings src/index.js",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
@@ -41,10 +41,13 @@
 		"fastify-multipart": "^5.3.1",
 		"fastify-plugin": "^3.0.1",
 		"http-status": "^1.5.1",
+		"ioredis": "^5.0.4",
 		"mongoose": "^6.3.0",
 		"msgpackr": "^1.5.6",
 		"nodejs-snowflake": "^2.0.1",
-		"paseto": "^3.1.0"
+		"paseto": "^3.1.0",
+		"pino-pretty": "^7.6.1",
+		"ua-parser-js": "^1.0.2"
 	},
 	"devDependencies": {
 		"eslint-config-airbnb": "^19.0.4",
