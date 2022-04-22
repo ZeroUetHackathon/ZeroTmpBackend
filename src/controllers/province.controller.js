@@ -25,7 +25,7 @@ const editProvinceWiki = async (request, reply) => {
 		},
 		{ new: true }
 	);
-	return reply.code(status.OK).send({ message: "Thành công!" });
+	return reply.code(status.OK).send({ message: "Success!" });
 };
 
 module.exports = {
