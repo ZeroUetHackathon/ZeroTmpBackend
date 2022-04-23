@@ -1,9 +1,15 @@
-/* eslint-disable global-require */
+const productsController = require("./products.controllers");
+const authController = require("./auth.controllers");
+const cartsController = require("./carts.controllers");
+const wikisController = require("./wikis.controllers");
+const usersController = require("./users.controllers");
+const salesController = require("./sales.controllers");
+
 module.exports = {
-	productsController: require("./products.controllers"),
-	authController: require("./auth.controllers"),
-	cartsController: require("./carts.controllers"),
-	wikisController: require("./wikis.controllers"),
-	usersController: require("./users.controllers"),
-	salesController: require("./sales.controllers"),
+	productsController,
+	authController,
+	cartsController,
+	wikisController,
+	usersController,
+	salesController,
 };

@@ -1,4 +1,5 @@
-/* eslint-disable global-require */
+const v1 = require("./v1");
+
 module.exports = {
-	v1: require("./v1"),
+	v1
 };
