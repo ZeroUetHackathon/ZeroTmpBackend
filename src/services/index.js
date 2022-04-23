@@ -1,7 +1,11 @@
-/* eslint-disable global-require */
+const tokenService = require('./token.service');
+const authService = require('./auth.service');
+const userService = require('./user.service');
+const mongooseService = require('./moongose.service');
+
 module.exports = {
-	tokenService: require("./token.service"),
-	authService: require("./auth.service"),
-	userService: require("./user.service"),
-	mongooseService: require("./mongoose.service"),
+	tokenService,
+	authService,
+	userService,
+	mongooseService
 };

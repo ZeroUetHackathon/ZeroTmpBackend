@@ -1,7 +1,11 @@
-/* eslint-disable global-require */
+const authHandler = require("./auth");
+const fastifyMsgpackr = require("./fastifyMsgpackr");
+const errorHandler = require("./errorHandler");
+const notFoundHandler = require("./notFoundHandler");
+
 module.exports = {
-	authHandler: require("./auth"),
-	fastifyMsgpackr: require("./fastifyMsgpackr"),
-	errorHandler: require("./errorHandler"),
-	notFoundHandler: require("./notFoundHandler"),
+	authHandler,
+	fastifyMsgpackr,
+	errorHandler,
+	notFoundHandler,
 };

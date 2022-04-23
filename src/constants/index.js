@@ -1,4 +1,5 @@
-/* eslint-disable global-require */
+const regex = require("./regex.constants");
+
 module.exports = {
-	regex: require("./regex.constants"),
+	regex
 };
